@@ -1,6 +1,9 @@
 # dsh-rashod-live — «Расход-живой»
 
-**Статус:** 0.1.0 — заготовка, по умолчанию выключена (`enabled: false`).
+**Статус:** 0.1.1 — формат и события проверены офлайн-прогоном реальных
+журналов (см. INTERNAL.md); живая запись на включённой сессии — за
+рестартом DSH. По умолчанию выключена (`enabled: false`) — включается
+словом Мастера.
 **Боль (AGENTS.md I.2):** живого счётчика токенов нет; расход известно
 только постфактум из журналов; правило «превышение 2× — стоп» держится
 в голове координатора.
@@ -28,7 +31,13 @@
   рестарт DSH.
 - Чек-лист доводки до 0.2.0 — в `INTERNAL.md`.
 
-## Честность чисел
+## Честность чисел и формат строки (v1, менять молча нельзя — потребитель `tools/расход`)
 
-Строка содержит `kind: "оценка"` и `source: "tokenMeter"`. Замером из
-журнала DSH это не является, пока не закрыт неизвестный №2 (точный usage).
+Каждая строка несёт `kind` — природу числа:
+
+- оценка (tokenMeter, на закрытие хода):
+  `{"ts":"…","sessionId":"session-…","kind":"оценка","source":"tokenMeter","totalTokens":500000,"surfaceTokens":25000,"baseline":"usage","pressureTokens":40000,"contextWindow":262144,"task":"П-69","model":null,"turn":1,"reason":"completed"}`
+- замер (биллинг-usage из события ассистента):
+  `{"ts":"…","sessionId":"session-…","kind":"замер","source":"assistant/message","totalTokens":21723,"surfaceTokens":null,"baseline":"usage","pressureTokens":null,"contextWindow":null,"task":"П-69","model":"Qwen","turn":1,"step":1,"inputTokens":21568,"outputTokens":155}`
+
+Поля v1 (`ts…model`) не удаляются; добавления документируются здесь же.
