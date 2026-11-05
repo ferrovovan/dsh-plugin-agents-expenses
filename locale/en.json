@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Live token meter",
+    "description": "Tracks session token spend in real time: tokenMeter measurements are appended to an intermediate JSONL file for the accounting CLI."
+  }
+}

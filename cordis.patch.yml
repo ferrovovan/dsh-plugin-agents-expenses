@@ -1,0 +1,12 @@
+# Строка профиля. Ставится plugin_manager install_bundle (путь этого репо),
+# руками cordis.patch.yml профиля не править.
+- insert:
+    - id: rashod-live
+      name: '@local/dsh-rashod-live'
+      config:
+        # Промежуточный журнал сессий (JSONL, append). В РАСХОД.db — только
+        # якорем, tools/расход (принцип П-69). Плагин в БД не пишет.
+        file: /home/vovan/Предприниматель/РАСХОД.сессии.jsonl
+        enabled: false      # рубильник: по умолчанию ВЫКЛ, включается словом
+        task: "—"           # индекс задачи в строке (П-NN, D-NN, направление)
+        model: ""           # метка модели (Qwen/DeepSeek), если внешняя
